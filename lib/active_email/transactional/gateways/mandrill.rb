@@ -29,6 +29,11 @@ module ActiveEmail #:nodoc:
         super
       end
 
+      def status(transaction_id)
+        answer = @mandrill.messages.info transaction_id
+        build_response(:send, answer)
+      end
+
       def send(email, options = {})
         headers = email.reply_to.nil? ? { } : { "Reply-To" => email.reply_to }
         message = {
