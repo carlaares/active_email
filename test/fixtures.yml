@@ -13,6 +13,7 @@
 mandrill:
   api_key: 'x'
 
+
 # Working credentials, no need to replace
 amazon_ses:
   login: 'e1c5ad38d1c711e1b36c026ba7e239a9'

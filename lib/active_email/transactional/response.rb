@@ -11,10 +11,10 @@ module ActiveEmail #:nodoc:
         @test
       end
 
-      def initialize(raw, success, message, params = {}, options = {})
+      def initialize(raw, success, message, params = {})
         @raw, @success, @message, @params = raw, success, message, params.stringify_keys
-        @test = options[:test] || false
-        @transaction_id = options[:transaction_id]
+        @test = params[:test] || false
+        @transaction_id = params[:transaction_id]
       end
     end
   end
