@@ -4,7 +4,7 @@ module ActiveEmail
       source_root File.expand_path("../templates", __FILE__)
 
       def copy_initializer
-        active_email_route = "get 'webhook/:id' => 'webhook#index', as: 'active_email_webhook'"
+        active_email_route = "match 'webhook' => 'webhook#index', as: 'active_email_webhook', via: [:get, :post]"
         route active_email_route
         copy_file "webhook_controller.rb", "app/controllers/webhook_controller.rb"
       end
