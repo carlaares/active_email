@@ -3,7 +3,7 @@ class WebhookController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def index
-    gateways, answer = Gateway.implementations, nil
+    gateways, answer = ActiveEmail::Transactional::Gateway.implementations, nil
     gateways.each do |gateway|
       answer = gateway.send 'process_webhook', params
       next unless answer.nil?
