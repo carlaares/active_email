@@ -83,7 +83,7 @@ module ActiveEmail #:nodoc:
             email_id = message['msg']['_id']
             options = {}
             { 'clicked_at' => 'clicks', 'opened_at' => 'opens' }.each do |key, value|
-              unless message['msg']['opens'].empty?
+              unless message['msg'][value].empty?
                 # TODO: shall we answer an array too??
                 options.merge!({ key => DateTime.strptime(message['msg'][value].first['ts'].to_s,'%s') })
               end
