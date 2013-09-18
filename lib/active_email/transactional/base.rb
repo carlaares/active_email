@@ -21,6 +21,11 @@ module ActiveEmail #:nodoc:
       def self.test?
         self.gateway_mode == :test
       end
+
+      # This method is overwritten by subclasses. default behavior is to answer nil.
+      def self.process_webhook(params)
+        nil
+      end
     end
   end
 end
