@@ -3,10 +3,16 @@ class WebhookController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def index
-    gateways, answer = ActiveEmail::Transactional::Gateway.implementations, nil
+    # TODO: improve GW list to be automatically loaded
+    gateways, answers = [ 'MandrillGateway' ], []
     gateways.each do |gateway|
-      answer = gateway.send 'process_webhook', params
       next unless answer.nil?
+      begin
+        answers = eval('ActiveEmail::Transactional::'+gateway).process_webhook params
+        answers.map &:save
+      rescue NoMethodError
+        # logger.error $!.backtrace
+      end
     end
 
     # variable answer has the GW answer parsed. Add your code here.

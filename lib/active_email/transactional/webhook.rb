@@ -1,6 +1,6 @@
 module ActiveEmail #:nodoc:
   module Transactional #:nodoc:
-    class Webhook
+    class Webhook < ActiveRecord::Base
       # Available events:
       # * send
       # * hard_bounce
@@ -11,14 +11,6 @@ module ActiveEmail #:nodoc:
       # * unsubscribe
       # * reject
       #
-      # Available options
-      # * opened_at
-      # * clicked_at
-      attr_reader :raw, :event, :id, :options
-
-      def initialize(raw, event, id, options = {})
-        @raw, @event, @id, @options = raw, event, id, options
-      end
     end
   end
 end

@@ -81,14 +81,14 @@ module ActiveEmail #:nodoc:
           if message.include? 'event'
             event = message['event'].gsub('unsub', 'unsubscribe')
             email_id = message['msg']['_id']
-            options = {}
+            date = nil
             { 'clicked_at' => 'clicks', 'opened_at' => 'opens' }.each do |key, value|
               unless message['msg'][value].empty?
                 # TODO: shall we answer an array too??
-                options.merge!({ key => DateTime.strptime(message['msg'][value].first['ts'].to_s,'%s') })
+                date = DateTime.strptime(message['msg'][value].first['ts'].to_s,'%s')
               end
             end
-            Webhook.new(message, event, email_id, options)
+            Webhook.create(raw_message: message, event: event, transaction_id: email_id, event_date: date)
           end
         end.compact
       end
