@@ -6,7 +6,7 @@ class WebhookController < ApplicationController
     # TODO: improve GW list to be automatically loaded
     gateways, answers = [ 'MandrillGateway' ], []
     gateways.each do |gateway|
-      next unless answer.nil?
+      next unless answers.empty?
       begin
         answers = eval('ActiveEmail::Transactional::'+gateway).process_webhook params
         answers.map &:save
