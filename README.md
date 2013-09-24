@@ -19,3 +19,35 @@ Then run this task to install active email files.
 
 rails generate active_email:install
 
+
+Usage
+=====
+
+# Send email 
+
+api_key = "mandrill api"
+gateway = ActiveEmail::Transactional::MandrillGateway.new api_key: api_key
+email = Email.new(
+  :to_name               => 'Carla',
+  :to_email_address      => 'carla.ares@gmail.com',
+  :from_name             => 'Carla',
+  :from_email_address    => 'carla.ares@gmail.com',
+  :template_identifier   => 'template_name',
+  :dynamic_content       => { :salutation => 'Ms', :link => 'http://'  },
+  :reply_to              => 'carla.ares@gmail.com',
+  :subject               => 'Test subject'
+)
+response = gateway.send(email)
+puts response.message
+puts response.transaction_id
+puts response.success?
+
+
+# Include helpers for each gateway with base configuration
+
+<div class="form-group">
+  <%= mandrill_configuration :email_client_configuration, class: "form-control" %>
+</div>
+
+
+
