@@ -6,7 +6,7 @@ module ActiveEmail #:nodoc:
     #
     # The standard list of gateway functions that most concrete gateway subclasses implement is:
     #
-    # * <tt>send(email_address, template_identifier, email_content, options = {})</tt>
+    # * <tt>send!(email_address, template_identifier, email_content, options = {})</tt>
     # * <tt>status(email_address_or_transaction_id, options = {})</tt>
     #
     # === Gateway Method Arguments

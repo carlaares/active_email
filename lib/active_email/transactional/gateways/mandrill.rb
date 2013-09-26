@@ -33,8 +33,9 @@ module ActiveEmail #:nodoc:
         build_response(:send, answer)
       end
 
-      def send(email, options = {})
+      def send!(email, options = {})
         headers = email.reply_to.nil? ? { } : { "Reply-To" => email.reply_to }
+        vars = email.dynamic_content.collect { |key, value| { "name" => key, "content" => value } }
         message = {
           "headers"=>headers,
           "from_name"=>email.from_name,
@@ -44,6 +45,10 @@ module ActiveEmail #:nodoc:
           "track_opens"=>(options[:track_opens]||true),
           "to"=>[{"name"=>email.to_name, "email"=>email.to_email_address}],
           "subject"=>email.subject,
+          "merge_vars"=> [{ 
+            "rcpt"=>email.to_email_address,
+            "vars"=>vars
+          }],
           "tags"=>[ options[:tags] ], #TODO: validate that tags is an array
           "track_clicks"=>(options[:track_clicks]||true) 
         }
