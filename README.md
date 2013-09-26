@@ -12,19 +12,19 @@ Installation
 ============
 
 Add the following line into your Gemfile.
-
+```
 gem 'active_email', github: 'carlaares/active_email'
-
+```
 Then run this task to install active email files.
-
+```
 rails generate active_email:install
+````
 
+# Usage
 
-Usage
-=====
+## Send email 
 
-# Send email 
-
+```ruby
 api_key = "mandrill api"
 gateway = ActiveEmail::Transactional::MandrillGateway.new api_key: api_key
 email = Email.new(
@@ -41,13 +41,13 @@ response = gateway.send(email)
 puts response.message
 puts response.transaction_id
 puts response.success?
+```
 
-
-# Include helpers for each gateway with base configuration
-
+## Include helpers for each gateway with base configuration
+```html
 <div class="form-group">
   <%= mandrill_configuration :email_client_configuration, class: "form-control" %>
 </div>
-
+```
 
 
