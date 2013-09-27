@@ -108,7 +108,7 @@ module ActiveEmail #:nodoc:
           first_response = response.first
           Response.new(
               response,
-              first_response['status'] == "sent",
+              ["sent", "queued"].include?(first_response['status']),
               first_response['reject_reason'], {
               :transaction_id => first_response['_id'],
               :test          => test?
