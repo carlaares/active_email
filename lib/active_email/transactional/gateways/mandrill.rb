@@ -28,6 +28,11 @@ module ActiveEmail #:nodoc:
         super
       end
 
+      def available_template_ids
+        result = @mandrill.templates.list
+        result.collect {|t| t['slug']}
+      end
+
       def status(transaction_id)
         answer = @mandrill.messages.info transaction_id
         build_response(:send, answer)

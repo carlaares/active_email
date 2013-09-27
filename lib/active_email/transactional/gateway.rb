@@ -8,6 +8,7 @@ module ActiveEmail #:nodoc:
     #
     # * <tt>send!(email_address, template_identifier, email_content, options = {})</tt>
     # * <tt>status(email_address_or_transaction_id, options = {})</tt>
+    # * <tt>available_template_ids</tt>
     #
     # === Gateway Method Arguments
     # * <tt>:email_address</tt> - Destination Email address
