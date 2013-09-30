@@ -93,7 +93,7 @@ module ActiveEmail #:nodoc:
             email_id = message['msg']['_id']
             date = nil
             { 'clicked_at' => 'clicks', 'opened_at' => 'opens' }.each do |key, value|
-              unless message['msg'][value].empty?
+              if not message['msg'][value].nil? and not message['msg'][value].empty?
                 # TODO: shall we answer an array too??
                 date = DateTime.strptime(message['msg'][value].first['ts'].to_s,'%s')
               end
