@@ -91,7 +91,7 @@ module ActiveEmail #:nodoc:
           if message.include? 'event'
             event = message['event'].gsub('unsub', 'unsubscribe')
             email_id = message['msg']['_id']
-            date = nil
+            date = DateTime.strptime(message['msg']['ts'].to_s,'%s') rescue nil
             { 'clicked_at' => 'clicks', 'opened_at' => 'opens' }.each do |key, value|
               if not message['msg'][value].nil? and not message['msg'][value].empty?
                 # TODO: shall we answer an array too??
